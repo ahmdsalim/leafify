@@ -3,6 +3,7 @@ name: setup
 on:
  schedule:
   - cron: '0 */8 * * *'
+ workflow_dispatch:
 
 jobs:
  update-repo:
@@ -14,7 +15,7 @@ jobs:
    - name: Update README timestamp
      run: |
       export TZ="Asia/Jakarta"
-      TIMESTAMP=$(date + "%Y-%m-%d %H:%M:%S %Z")
+      TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S %Z")
       echo "Latest updated: $TIMESTAMP" > README.md
 
    - name: Configure git
@@ -22,7 +23,7 @@ jobs:
       git config user.name "ahmdsalim"
       git config user.email "salimahmad14823@gmail.com"
       git config user.signingkey 6BE545A82AF86D7F
-      echo "${{ secrets.GPG_PRIVATE_KEY }} | gpg --import --batch --yes
+      echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import --batch --yes
       gpg --list-secret-keys
 
    - name: Commit changes
