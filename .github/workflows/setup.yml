@@ -12,10 +12,14 @@ jobs:
    - name: Checkout repostory
      uses: actions/checkout@v3
 
-   - name: Update README timestamp
+   - name: Generate timestamp
      run: |
       export TZ="Asia/Jakarta"
       TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S %Z")
+      echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+
+   - name: Update README timestamp
+     run: |
       echo "Latest updated: $TIMESTAMP" > README.md
 
    - name: Configure git
